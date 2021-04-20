@@ -1,6 +1,7 @@
 package com.jomibusa.themoviedb.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jomibusa.themoviedb.R;
 import com.jomibusa.themoviedb.modelo.Movie;
+import com.jomibusa.themoviedb.modelo.Result;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,11 +23,11 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
     private int resource;
     private Context context;
-    private ArrayList<Movie> databaseList;
-    private List<Movie> databaseListFull;
+    private ArrayList<Result> databaseList;
+    private List<Result> databaseListFull;
     private int lastPosition = -1;
 
-    public MovieAdapter(ArrayList<Movie> databaseList, int resource, Context context) {
+    public MovieAdapter(ArrayList<Result> databaseList, int resource, Context context) {
         this.databaseList = databaseList;
         this.context = context;
         this.resource = resource;
@@ -43,18 +45,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull final MovieAdapter.ViewHolder holder, int position) {
 
-        final Movie database = databaseList.get(position);
-
-        //holder.textViewPalabra.setText(database.getClass());
-
-        //holder.container.setAnimation(AnimationUtils.loadAnimation(context, R.anim.animacion_recycler));
-
+        final Result database = databaseList.get(position);
+        String buildUrl = "https://image.tmdb.org/t/p/w500" + database.getPosterPath();
         try {
-            Picasso.get().load("").fit().into(holder.imageView);
+            Picasso.get().load(buildUrl).fit().into(holder.imageView);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
         holder.view.setOnClickListener(view -> {
 
         });
@@ -66,28 +63,28 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
         return databaseList.size();
     }
 
-    /*public void filter(final String search) {
+    public void filter(final String search) {
         if (search.length() == 0) {
             databaseList.clear();
             databaseList.addAll(databaseListFull);
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 databaseList.clear();
-                List<Movie> collect = databaseListFull.stream()
-                        .filter(i -> i.getNombre().toLowerCase().contains(search))
+                List<Result> collect = databaseListFull.stream()
+                        .filter(i -> i.getTitle().toLowerCase().contains(search))
                         .collect(Collectors.toList());
                 databaseList.addAll(collect);
             } else {
                 databaseList.clear();
-                for (Movie movieModelo : databaseListFull) {
-                    if (movieModelo.getNombre().toLowerCase().contains(search)) {
+                for (Result movieModelo : databaseListFull) {
+                    if (movieModelo.getTitle().toLowerCase().contains(search)) {
                         databaseList.add(movieModelo);
                     }
                 }
             }
         }
         notifyDataSetChanged();
-    }*/
+    }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
