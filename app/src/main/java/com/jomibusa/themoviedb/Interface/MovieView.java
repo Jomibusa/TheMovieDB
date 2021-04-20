@@ -8,7 +8,9 @@ public interface MovieView {
 
     void getMovies();
 
-    void cargarRecylcer(ArrayList<Result> results);
+    void getMoviesByPage();
+
+    void cargarRecylcer(ArrayList<Result> results, int page);
 
     void mostrarError();
 

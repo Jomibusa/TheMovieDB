@@ -28,8 +28,9 @@
     <LinearLayout
         android:id="@+id/containerMovies"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/container2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -40,14 +41,50 @@
             android:layout_height="wrap_content"
             android:background="@color/lightBlue"
             app:iconifiedByDefault="false"
-            app:queryHint="Search Movie"/>
+            app:queryHint="Search Movie" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listMovies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </LinearLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/container2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/guide1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnAtras"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ovalo"
+            android:textColor="@color/black"
+            android:layout_marginEnd="10dp"
+            android:enabled="false"
+            android:visibility="gone"
+            android:text="Back"/>
+        <Button
+            android:id="@+id/btnSig"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ovalo"
+            android:textColor="@color/black"
+            android:layout_marginStart="10dp"
+            android:visibility="gone"
+            android:text="Next"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

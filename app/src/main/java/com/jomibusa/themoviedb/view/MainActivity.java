@@ -33,6 +33,8 @@ public class MainActivity extends BaseActivity<MoviePresenter> implements MovieV
     private SearchView searchView;
     ProgressBar progressBar;
     Dialog dialog;
+    private Button btnBack, btnNext;
+    int paginacion = 1;
 
     @NonNull
     @Override
@@ -48,9 +50,29 @@ public class MainActivity extends BaseActivity<MoviePresenter> implements MovieV
         dRecyclerView = findViewById(R.id.listMovies);
         searchView = findViewById(R.id.search_view_movies);
         progressBar = findViewById(R.id.progressBar);
+        btnBack = findViewById(R.id.btnAtras);
+        btnNext = findViewById(R.id.btnSig);
         dialog = new Dialog(this);
         getMovies();
         initListener();
+
+        btnNext.setOnClickListener(v -> {
+            paginacion++;
+            if(paginacion > 1){
+                btnBack.setEnabled(true);
+            }else if(paginacion <= 500){
+                btnNext.setEnabled(false);            }
+            getMoviesByPage();
+        });
+
+        btnBack.setOnClickListener(v -> {
+            paginacion--;
+            if(paginacion <= 1){
+                btnBack.setEnabled(false);
+            }
+            getMoviesByPage();
+        });
+
     }
 
     private void initListener() {
@@ -74,7 +96,13 @@ public class MainActivity extends BaseActivity<MoviePresenter> implements MovieV
     }
 
     @Override
-    public void cargarRecylcer(ArrayList<Result> results) {
+    public void getMoviesByPage() {
+        mPresenter.cargarDatosByPage(paginacion);
+    }
+
+
+    @Override
+    public void cargarRecylcer(ArrayList<Result> results, int page) {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
         dRecyclerView.setLayoutManager(layoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, layoutManager.getOrientation());
@@ -83,6 +111,8 @@ public class MainActivity extends BaseActivity<MoviePresenter> implements MovieV
         dRecyclerView.setAdapter(dAdapter);
         progressBar.setVisibility(View.GONE);
         dRecyclerView.setVisibility(View.VISIBLE);
+        btnNext.setVisibility(View.VISIBLE);
+        btnBack.setVisibility(View.VISIBLE);
     }
 
     @Override

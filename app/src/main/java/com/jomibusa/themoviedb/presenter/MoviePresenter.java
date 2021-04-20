@@ -23,9 +23,13 @@ public class MoviePresenter extends BasePresenter implements MovieInteractor.onD
         itemsInteractor.getMovies(this);
     }
 
+    public void cargarDatosByPage(int page){
+        itemsInteractor.getMoviesByPage(this, page);
+    }
+
     @Override
-    public void onSuccess(ArrayList<Result> results) {
-        view.cargarRecylcer(results);
+    public void onSuccess(ArrayList<Result> results, int page) {
+        view.cargarRecylcer(results, page);
     }
 
     @Override
