@@ -1,6 +1,7 @@
 package com.jomibusa.themoviedb.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jomibusa.themoviedb.R;
 import com.jomibusa.themoviedb.modelo.Movie;
 import com.jomibusa.themoviedb.modelo.Result;
+import com.jomibusa.themoviedb.view.MovieDetail;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -53,7 +55,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             System.out.println(e.getMessage());
         }
         holder.view.setOnClickListener(view -> {
-
+            Intent intent = new Intent(context, MovieDetail.class);
+            intent.putExtra("descripcion", database.getOverview());
+            intent.putExtra("imagen", database.getBackdropPath());
+            intent.putExtra("video", database.getVideo());
+            intent.putExtra("nombre", database.getTitle());
+            context.startActivity(intent);
         });
 
     }

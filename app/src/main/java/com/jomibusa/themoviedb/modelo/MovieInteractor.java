@@ -44,9 +44,6 @@ public class MovieInteractor {
                 Movie contenido = response.body();
                 if (contenido != null) {
                     List<Result> listProducts = contenido.getResults();
-                    for (int i = 0 ; i < listProducts.size(); i++){
-                        System.out.println("PASO -> " + listProducts.get(i));
-                    }
                     if (listProducts.size() > 0) {
                         ArrayList<Result> lista = new ArrayList<Result>(listProducts);
                         listener.onSuccess(lista);
