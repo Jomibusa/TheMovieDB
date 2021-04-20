@@ -12,8 +12,4 @@ public interface MovieView {
 
     void mostrarError();
 
-    void noHayResultados();
-
-
-
 }

@@ -30,11 +30,7 @@ public class MoviePresenter extends BasePresenter implements MovieInteractor.onD
 
     @Override
     public void onFailure() {
-
+        view.mostrarError();
     }
 
-    @Override
-    public void noResults() {
-
-    }
 }

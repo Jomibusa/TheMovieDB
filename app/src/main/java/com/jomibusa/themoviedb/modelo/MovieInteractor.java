@@ -22,7 +22,6 @@ public class MovieInteractor {
 
         void onFailure();
 
-        void noResults();
     }
 
     public void getMovies(final onDetailsFetched listener) {
@@ -52,7 +51,7 @@ public class MovieInteractor {
                         ArrayList<Result> lista = new ArrayList<Result>(listProducts);
                         listener.onSuccess(lista);
                     } else {
-                        listener.noResults();
+                        listener.onFailure();
                     }
 
                 }
