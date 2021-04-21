@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.jomibusa.themoviedb.Interface.MovieView;
 import com.jomibusa.themoviedb.R;
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity<MoviePresenter> implements MovieV
     ProgressBar progressBar;
     Dialog dialog;
     private Button btnBack, btnNext;
+    private TextView result;
     int paginacion = 1;
 
     @NonNull
@@ -47,32 +49,46 @@ public class MainActivity extends BaseActivity<MoviePresenter> implements MovieV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dRecyclerView = findViewById(R.id.listMovies);
-        searchView = findViewById(R.id.search_view_movies);
-        progressBar = findViewById(R.id.progressBar);
-        btnBack = findViewById(R.id.btnAtras);
-        btnNext = findViewById(R.id.btnSig);
-        dialog = new Dialog(this);
+        initData();
         getMovies();
         initListener();
 
         btnNext.setOnClickListener(v -> {
             paginacion++;
-            if(paginacion > 1){
+            progressBar.setVisibility(View.VISIBLE);
+            dRecyclerView.setVisibility(View.GONE);
+            btnNext.setVisibility(View.GONE);
+            btnBack.setVisibility(View.GONE);
+            if (paginacion > 1) {
                 btnBack.setEnabled(true);
-            }else if(paginacion <= 500){
-                btnNext.setEnabled(false);            }
+            } else if (paginacion <= 500) {
+                btnNext.setEnabled(false);
+            }
             getMoviesByPage();
         });
 
         btnBack.setOnClickListener(v -> {
             paginacion--;
-            if(paginacion <= 1){
+            progressBar.setVisibility(View.VISIBLE);
+            dRecyclerView.setVisibility(View.GONE);
+            btnNext.setVisibility(View.GONE);
+            btnBack.setVisibility(View.GONE);
+            if (paginacion <= 1) {
                 btnBack.setEnabled(false);
             }
             getMoviesByPage();
         });
 
+    }
+
+    public void initData() {
+        dRecyclerView = findViewById(R.id.listMovies);
+        searchView = findViewById(R.id.search_view_movies);
+        progressBar = findViewById(R.id.progressBar);
+        btnBack = findViewById(R.id.btnAtras);
+        btnNext = findViewById(R.id.btnSig);
+        result = findViewById(R.id.txtResults);
+        dialog = new Dialog(this);
     }
 
     private void initListener() {
@@ -81,12 +97,26 @@ public class MainActivity extends BaseActivity<MoviePresenter> implements MovieV
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        if (dAdapter.getItemCount() <= 0) {
+            dRecyclerView.setVisibility(View.GONE);
+            result.setVisibility(View.VISIBLE);
+        } else {
+            dRecyclerView.setVisibility(View.VISIBLE);
+            result.setVisibility(View.GONE);
+        }
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
         dAdapter.filter(newText);
+        if (dAdapter.getItemCount() <= 0) {
+            dRecyclerView.setVisibility(View.GONE);
+            result.setVisibility(View.VISIBLE);
+        } else {
+            dRecyclerView.setVisibility(View.VISIBLE);
+            result.setVisibility(View.GONE);
+        }
         return false;
     }
 
