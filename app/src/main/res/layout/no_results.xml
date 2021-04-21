@@ -28,7 +28,7 @@
             android:layout_marginEnd="3dp"
             android:fontFamily="serif-monospace"
             android:gravity="center"
-            android:text="Hubo un error tratando de encontrar los datos! ☹️"
+            android:text="@string/ErrorDatos"
             android:textColor="@color/lightGreen"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ovalo"
-            android:text="INTENTAR DE NUEVO" />
+            android:text="@string/Intentar" />
 
     </LinearLayout>
 
