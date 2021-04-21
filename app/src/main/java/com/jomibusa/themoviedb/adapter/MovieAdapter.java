@@ -28,7 +28,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     private Context context;
     private ArrayList<Result> databaseList;
     private List<Result> databaseListFull;
-    private int lastPosition = -1;
 
     public MovieAdapter(ArrayList<Result> databaseList, int resource, Context context) {
         this.databaseList = databaseList;
